@@ -1,8 +1,11 @@
 # A quick attempt to search a known file, without functionalisation or any inputs
 
 import re
+import time
 
-targetList = targets = [5335, 15504, 45802, 54520, 88268, 88269, 91133, 118379, 119066, 119067,
+t0 = time.time()
+
+targetList = [5335, 15504, 45802, 54520, 88268, 88269, 91133, 118379, 119066, 119067,
                         119068, 119069, 119070, 134568, 135571, 144908, 149560, 160148, 380751,
                         413837, 415788, 420062, 427446, 428282, 458152, 461203, 466096, 467777,
                         469922, 475707, 476348, 476743, 477976, 478116, 481443, 481448, 489604,
@@ -16,24 +19,41 @@ targetList = targets = [5335, 15504, 45802, 54520, 88268, 88269, 91133, 118379, 
                         529899, 529908, 530037, 530131, 530203, 530213, 530236, 530267, 530317,
                         530374, 531550, 531664, 532105, 532870, 533198, 533267, 533631, 534268,
                         534455, 534499, 534531, 534742, 534794, 534933, 535429, 535443, 535626,
-                        535905, 536049, 536643, 540834, 541101]
+                        535905, 536049, 536643, 540834, 541101, 88268, 91133, 119066, 119067,
+              119068, 119069, 119070, 135571, 420062, 427446, 428282, 477976,
+                   481448, 489604, 499551, 504031, 504054, 504713, 505423, 506570, 506574, 506580, 507702, 509086,
+                   509959, 512701, 526644, 526806, 530213, 533267, 535429, 440207, 440700, 467934, 471211, 476165,
+                   478387, 481314, 485137, 488389, 490199, 493635, 498275, 500884, 500885, 502241, 504927, 506646,
+                   506670, 506696, 507032, 507669, 509104, 509211, 509723, 509739, 509868, 510806, 514220, 515379,
+                   516196, 516681, 519639, 521365, 524666, 526306, 526731, 526908, 527773, 527909, 527970, 528012,
+                   528764, 531946, 531947, 532849, 532854, 539498, 411619, 434761, 449592, 470613, 471275, 474442,
+                   475741, 478565, 485127, 490713, 496162, 497454, 499644, 500109, 500873, 501657, 501700, 503864,
+                   504058, 504323, 504710, 505409, 505817, 506516, 506531, 506668, 506669, 508868, 508970, 509125,
+                   510022, 510473, 510657, 512064, 512438, 513129, 525322, 526753, 528511, 529433, 529519, 530017,
+                   530036, 531889, 535001, 536117, 537294, 539275, 539312, 539707, 540966]
 
-observableFile = open("observable.txt", 'r')
+observableFile = open("april.txt", 'r')
 observableContent = observableFile.read()
 resultFile = open("results.txt", "w+")
 resultList =[]
+print(f"Searching for {len(targetList)} targets, against observable data from {observableFile.name}")
 
 for asteroid in targetList:
-    regexObject = re.compile(str(asteroid)) # Need to add \s to either side
+    regexObject = re.compile('\s' + (str(asteroid))+ '\s') # Need to add \s to either side
     matchObject = regexObject.search(observableContent)
     if matchObject is not None:
         print(f"{asteroid} was found in the list")
         resultList.append(asteroid)
     else:
-        print(f"{asteroid} fard & shid pant")
+        print(f"{asteroid} not found")
 
 print(f"\nWe found {str(len(resultList))} asteroids from your data set on the observable list.")
 resultFile.write(str(resultList))
 resultFile.close()
+
+t1 = time.time()
+timeTaken = round((t1-t0), 2)
+
+print(f"The execution took {timeTaken} seconds.")
 
 
