@@ -5,7 +5,7 @@ import time
 
 t0 = time.time()
 
-targetList = [5335, 15504, 45802, 54520, 88268, 88269, 91133, 118379, 119066, 119067,
+targetList = [558, 5335, 15504, 45802, 54520, 88268, 88269, 91133, 118379, 119066, 119067,
                         119068, 119069, 119070, 134568, 135571, 144908, 149560, 160148, 380751,
                         413837, 415788, 420062, 427446, 428282, 458152, 461203, 466096, 467777,
                         469922, 475707, 476348, 476743, 477976, 478116, 481443, 481448, 489604,
@@ -32,14 +32,14 @@ targetList = [5335, 15504, 45802, 54520, 88268, 88269, 91133, 118379, 119066, 11
                    510022, 510473, 510657, 512064, 512438, 513129, 525322, 526753, 528511, 529433, 529519, 530017,
                    530036, 531889, 535001, 536117, 537294, 539275, 539312, 539707, 540966]
 
-observableFile = open("april.txt", 'r')
+observableFile = open("Observable at 2021-04-01-01:00.txt", 'r')
 observableContent = observableFile.read()
 resultFile = open("results.txt", "w+")
 resultList =[]
 print(f"Searching for {len(targetList)} targets, against observable data from {observableFile.name}")
 
 for asteroid in targetList:
-    regexObject = re.compile('\s' + (str(asteroid))+ '\s') # Need to add \s to either side
+    regexObject = re.compile('sstr=' + (str(asteroid))) # Need to add \s to either side
     matchObject = regexObject.search(observableContent)
     if matchObject is not None:
         print(f"{asteroid} was found in the list")
